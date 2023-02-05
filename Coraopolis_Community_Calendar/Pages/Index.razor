@@ -1,0 +1,31 @@
+﻿@page "/"
+@using Coraopolis_Community_Calendar.Data
+
+<PageTitle>Coraopolis Community Calendar</PageTitle>
+
+<select @onchange="LoadCalendar">
+    @foreach(string monthName in months)
+    {
+        
+        <option>@monthName</option>
+    }
+</select>
+
+@code{
+    List<string> months = new List<string>();
+    List<string> days = new List<string>();
+    List<Week> weeks = new List<Week>();
+    DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+    DateTime endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(7);
+
+    protected override void OnInitialized()
+    {
+        months = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
+    }
+
+    private void LoadCalendar(ChangeEventArgs e)
+    {
+        var month = e.Value.ToString();
+    }
+}
+
